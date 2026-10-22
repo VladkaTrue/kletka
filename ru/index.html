@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Клетка — судоку на тетрадном листе</title><meta name="description" content="Судоку на тетрадном листе для iPhone и iPad: четыре партии дня, подсказки с названием приёма, эксперт, который правда сложный. Ещё одну?">
+<meta property="og:title" content="Клетка — судоку на тетрадном листе"><meta property="og:description" content="Судоку на тетрадном листе для iPhone и iPad: четыре партии дня, подсказки с названием приёма, эксперт, который правда сложный. Ещё одну?">
+<meta property="og:image" content="https://kletka.vladislove.online/assets/og.png"><meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f4f5f2" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0e1110" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../assets/icon-180.png"><link rel="apple-touch-icon" href="../assets/icon-180.png">
+<link rel="alternate" hreflang="en" href="../">
+<link rel="stylesheet" href="../assets/tokens.css"><style>
+@font-face{font-family:Pangolin;src:url(../assets/Pangolin-Regular.ttf) format("truetype");font-display:swap}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--color-text);font:18px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+  background-color:var(--color-bg);
+  --paper-line:color-mix(in srgb,var(--color-grid-line) 70%,var(--color-bg));
+  background-image:linear-gradient(var(--paper-line) 1px,transparent 1px),linear-gradient(90deg,var(--paper-line) 1px,transparent 1px);
+  background-size:28px 28px;background-position:-1px -1px}
+a{color:var(--color-accent)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+.hand{font-family:Pangolin,"Marker Felt",cursive;font-weight:400;text-transform:uppercase;letter-spacing:.01em}
+header.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.brand{display:flex;gap:10px;align-items:center;font-size:22px;color:var(--color-text);text-decoration:none}
+.brand img{width:36px;height:36px;border-radius:9px}
+.lang{font-size:15px;color:var(--color-text-muted);text-decoration:none;background:var(--color-surface);padding:6px 12px;border-radius:999px;border:1px solid var(--color-border)}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding:36px 0 64px}
+.hero h1{font-size:clamp(40px,6vw,68px);line-height:1.02;margin:0 0 18px}
+.hero h1 em{font-style:normal;color:var(--color-ink)}
+.stripe{display:block;width:120px;height:8px;background:var(--color-stripe);margin:0 0 22px;border-radius:2px}
+.hero p{font-size:20px;color:var(--color-text-muted);margin:0 0 28px;max-width:30em}
+.hero .tag{font-size:30px;color:var(--color-ink);margin:0 0 22px}
+.btn{display:inline-block;background:var(--color-accent);color:var(--color-on-accent);padding:15px 26px;border-radius:999px;font-weight:600;text-decoration:none}
+.btn.muted{background:var(--color-surface);color:var(--color-text);border:1px solid var(--color-border-input)}
+.shot{width:100%;max-width:330px;justify-self:center;border-radius:44px;background:var(--color-surface);
+  box-shadow:0 0 0 1px var(--color-border),0 24px 60px rgba(27,36,32,.16)}
+section{padding:56px 0}
+.panel{background:var(--color-surface);border:1px solid var(--color-border);border-radius:24px;padding:32px}
+h2{font-size:clamp(28px,3.6vw,38px);line-height:1.1;margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:20px;padding:22px}
+.card h3{margin:0 0 6px;font-size:18px}.card p{margin:0;color:var(--color-text-muted)}
+ol.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:s}
+ol.steps li{counter-increment:s;background:var(--color-surface);border:1px solid var(--color-border);border-radius:20px;padding:22px}
+ol.steps li::before{content:counter(s);display:block;font-family:Pangolin,cursive;font-size:40px;line-height:1;color:var(--color-ink);margin-bottom:10px}
+ol.steps b{display:block;margin-bottom:4px}
+.problem p{font-size:19px;color:var(--color-text-muted);max-width:40em;margin:0 0 12px}
+.price{text-align:center}.price p{color:var(--color-text-muted);max-width:36em;margin:0 auto 16px}
+details{background:var(--color-surface);border:1px solid var(--color-border);border-radius:16px;padding:16px 20px;margin-bottom:10px}
+summary{font-weight:600;cursor:pointer}details p{margin:10px 0 0;color:var(--color-text-muted)}
+.final{text-align:center}.final h2{font-size:clamp(40px,6vw,64px);color:var(--color-ink)}
+footer{padding:28px 0 48px;color:var(--color-text-muted);font-size:15px;display:flex;gap:18px;flex-wrap:wrap}
+footer a{color:var(--color-text-muted)}
+.doc{max-width:720px;margin:12px 0 60px}.doc h1{font-size:38px;margin-top:0}.doc p{margin:0 0 16px}
+:focus-visible{outline:3px solid var(--color-accent);outline-offset:3px;border-radius:6px}
+@media (max-width:820px){.hero{grid-template-columns:1fr;padding-top:12px}.grid,ol.steps{grid-template-columns:1fr}.shot{max-width:270px}.panel{padding:22px}}
+</style></head>
+<body><div class="wrap"><header class="top"><a class="brand hand" href="./"><img src="../assets/icon-180.png" alt="">Клетка</a>
+<a class="lang" href="../" hreflang="en">English</a></header>
+<main>
+<div class="hero"><div><h1 class="hand">Судоку на <em>тетрадном листе.</em></h1><span class="stripe" aria-hidden="true"></span>
+<p>Данные цифры графитом, твои — зелёными чернилами. Решил одну — следующая в одном касании.</p><p class="tag hand">Ещё одну?</p><span class="btn muted">Скоро в App Store</span></div>
+<img class="shot" src="../assets/shot-ru.png" alt="Клетка на iPhone: сетка судоку на тетрадном листе, цифры игрока зелёными чернилами"></div>
+<section class="problem"><div class="panel"><h2 class="hand">Следующая партия должна просто быть</h2><p>Во многих судоку следующая головоломка приходит после ожидания, дневного лимита или чего-то поверх доски.</p><p>А «сложная» часто не такая уж сложная, подсказка просто ставит цифру, а потерянную серию не вернуть.</p></div></section>
+<section><h2 class="hand">Как это устроено</h2><ol class="steps"><li><b>Выбери уровень</b>От лёгкой до эксперта — или одну из четырёх партий дня.</li><li><b>Решай</b>Клетка, потом цифра — или цифра, потом клетки. Удержи цифру, чтобы поставить заметку.</li><li><b>Ещё одну?</b>Следующая партия готова, как только ты закончил.</li></ol></section>
+<section><h2 class="hand">Для долгих вечеров с сеткой</h2><div class="grid"><div class="card"><h3>Четыре партии дня</h3><p>По одной на каждый уровень, одинаковые для всех, у каждой своя таблица в Game Center.</p></div><div class="card"><h3>Эксперт — правда сложный</h3><p>Уровень определяют приёмы, нужные для решения, вплоть до X‑wing и swordfish. Всегда одно решение, без угадывания.</p></div><div class="card"><h3>Подсказки, которые учат</h3><p>Подсказка называет приём и показывает, где он работает. Цифру ставишь, только если хочешь.</p></div><div class="card"><h3>Двенадцать коротких уроков</h3><p>Каждый приём простыми словами и с настоящей позицией из партий Клетки.</p></div><div class="card"><h3>Ввод, который успевает</h3><p>Вся клетка — зона касания. Сначала клетка или сначала цифра. Удержание — заметка.</p></div><div class="card"><h3>Заметки как надо</h3><p>Девять в клетке, каждая на своём месте. Отмена возвращает заметки, которые стёрла цифра.</p></div><div class="card"><h3>Крупная, ясная сетка</h3><p>Доска во всю ширину, яркие границы блоков 3×3.</p></div><div class="card"><h3>Не теряет место</h3><p>Закрой приложение посреди партии — вернёшься к тому же ходу. История и серия хранятся в твоём iCloud.</p></div><div class="card"><h3>Вид под себя</h3><p>Светлая и тёмная тема, зелёные или графитовые чернила, четыре фона доски и четыре иконки.</p></div></div></section>
+<section class="price"><div class="panel"><h2 class="hand">Всё уже в приложении</h2><p>Клетку можно скачать бесплатно, и все уровни, партии дня, подсказки, уроки и оформление открыты всем с первого запуска.</p><p>Если хочешь поддержать — вот тут. Это по желанию и ничего не открывает.</p><p><a class="btn muted" href="https://boosty.to/vladislove_online/donate">Поддержать</a></p></div></section>
+<section><h2 class="hand">Вопросы</h2><details><summary>Правда всё включено?</summary><p>Да. В приложении нечего покупать. Ссылка «Поддержать» на этом сайте — по желанию и ничего в игре не меняет.</p></details><details><summary>Работает без интернета?</summary><p>Полностью. Партии встроены в приложение, а Game Center догонит, когда интернет появится.</p></details><details><summary>Серия пропадёт, если сменить телефон?</summary><p>Нет. История и серия синхронизируются через твой iCloud и возвращаются после переустановки.</p></details><details><summary>Как определяется уровень?</summary><p>По самому сложному приёму, который нужен для решения. Лёгкой хватает одиночек, эксперту нужны цепочки трудных шагов вроде X‑wing и swordfish.</p></details><details><summary>Партия дня у всех одинаковая?</summary><p>Да. Четыре в день, по одной на уровень, меняются в полночь по UTC (в 03:00 по Москве).</p></details><details><summary>На каких устройствах и языках?</summary><p>iPhone и iPad с iOS 17 и новее. Русский и английский.</p></details></section>
+<section class="final"><h2 class="hand">Ещё одну?</h2><span class="btn muted">Скоро в App Store</span></section>
+</main>
+<footer><span>© 2026 Kletka</span><a href="https://apps.vladislove.online/">Приложения</a><a href="privacy.html">Конфиденциальность</a><a href="terms.html">Условия</a><a href="support.html">Поддержка</a></footer>
+</div></body></html>
